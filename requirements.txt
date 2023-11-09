@@ -13,6 +13,8 @@ ray
 tensorboard
 ipykernel
 ipython
+rich
+torch_geometric
 einops
 pytorch_lightning
 gymnasium==0.28.1
