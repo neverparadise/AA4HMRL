@@ -1,0 +1,43 @@
+import ray
+import subprocess
+import os
+
+@ray.remote(num_cpus=16, num_gpus=1)
+def distributed_training(cmd):
+    print("ray.get_gpu_ids(): {}".format(ray.get_gpu_ids()))
+    subprocess.run(cmd, shell=True)
+
+cmds=[
+    nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.device=0 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True 'experiment.pretraining_env_ids=[BipedalWalker-v3]'
+    nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.device=1 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True 'experiment.pretraining_env_ids=[MountainCarContinuous-v0]'
+    nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.device=2 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True 'experiment.pretraining_env_ids=[BipedalWalkerHardcore-v3]'
+    nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.device=3 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True 'experiment.pretraining_env_ids=[Ant-v4]'
+    nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.device=4 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True 'experiment.pretraining_env_ids=[Hopper-v4]'
+    nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.device=5 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True 'experiment.pretraining_env_ids=[HalfCheetah-v4]' 
+    nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.device=6 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True 'experiment.pretraining_env_ids=[Humanoid-v4]'
+    nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.device=7 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True 'experiment.pretraining_env_ids=[Walker2d-v4]'
+]
+
+result_refs = []
+for cmd in cmds:
+    ref = distributed_training.remote(cmd)
+    result_refs.append(ref)
+ray.get(result_refs)
+
+# cmds = [
+     nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.num_envs=4 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True ppo.num_minibatches=8 'experiment.pretraining_env_ids=[Pong-v5]' 'experiment.finetuning_env_ids=[Pong-v5]'
+     nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.num_envs=4 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True ppo.num_minibatches=8 'experiment.pretraining_env_ids=[Freeway-v5]' 'experiment.finetuning_env_ids=[Freeway-v5]'
+     nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.num_envs=4 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True ppo.num_minibatches=8 'experiment.pretraining_env_ids=[Kaboom-v5]' 'experiment.finetuning_env_ids=[Kaboom-v5]'
+     nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.num_envs=4 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True ppo.num_minibatches=8 'experiment.pretraining_env_ids=[Pong-v5]' 'experiment.finetuning_env_ids=[Pong-v5]'
+     nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.num_envs=4 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True ppo.num_minibatches=8 'experiment.pretraining_env_ids=[Breakout-v5]' 'experiment.finetuning_env_ids=[Breakout-v5]'
+     nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.num_envs=4 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True ppo.num_minibatches=8 'experiment.pretraining_env_ids=[Frogger-v5]' 'experiment.finetuning_env_ids=[Frogger-v5]'
+     nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.num_envs=4 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True ppo.num_minibatches=8 'experiment.pretraining_env_ids=[Seaquest-v5]' 'experiment.finetuning_env_ids=[Seaquest-v5]'
+     nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.num_envs=4 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True ppo.num_minibatches=8 'experiment.pretraining_env_ids=[Pacman-v5]' 'experiment.finetuning_env_ids=[Pacman-v5]'
+     nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.num_envs=4 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True ppo.num_minibatches=8 'experiment.pretraining_env_ids=[BeamRider-v5]' 'experiment.finetuning_env_ids=[BeamRider-v5]'
+# ]
+
+# result_refs = []
+# for cmd in cmds:
+#     ref = distributed_training.remote(cmd)
+#     result_refs.append(ref)
+# ray.get(result_refs)

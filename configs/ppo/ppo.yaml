@@ -1,0 +1,23 @@
+actor_lr: 0.0003
+critic_lr: 0.0005
+finetuning_actor_lr: 0.0003
+finetuning_critic_lr: 0.0005
+actor_weight_decay: 0.0 # 0.00001
+critic_weight_decay: 0.0 # 0.00001
+anneal_lr: False
+update_epochs: 10 # 10 The number of iteractions of ppo training
+num_minibatches: 8 # 8 The number of minibatches per 1 epoch (Not mibi batch size)
+batch_size: None # Adaptively calculated by num_minibatches, num_train_envs, total_time_steps
+minibatch_size: None # Adaptively calculated by num_minibatches, num_train_envs, total_time_steps
+use_grad_clip: True
+max_grad_norm: 0.5
+norm_adv: True
+norm_return: False
+const_coef: 0.0 # frobenius norm
+clip_coef: 0.2
+clip_vloss: True
+ent_coef: 0.0
+ent_coef_discrete: 0.0
+vf_coef: 0.5
+gamma: 0.99
+gae_lambda: 0.95

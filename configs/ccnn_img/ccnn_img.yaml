@@ -1,0 +1,51 @@
+net:
+  type: ResNet
+  no_hidden: 64
+  no_blocks: 2
+  no_stages: -1
+  data_dim: 2                    # Should be overridden automatically
+  dropout: 0.1
+  dropout_in: 0.0
+  dropout_type: Dropout2d
+  norm: BatchNorm
+  nonlinearity: GELU
+  block_width_factors: [0.0, ]
+  block:
+    type: S4
+    prenorm: True
+  prenorm: True
+  downsampling: [] # After the indices of these blocks place a downsampling layer.
+  downsampling_size: -1
+
+kernel:
+  type: MAGNet
+  bias: True
+  no_hidden: 64
+  no_layers: 2
+  omega_0: 2085.433586112234
+  input_scale: 0.0
+  size: 33
+  chang_initialize: True
+  norm: Identity
+  nonlinearity: Identity
+  init_spatial_value: 1.0   # Only != 1.0 if FlexConvs are used.
+  num_edges: -1 # In case of pointcloud data.
+  bottleneck_factor: -1 # In case of pointckconv, bottleneck is applied before pointconv.
+
+mask:
+  type: gaussian
+  init_value: 0.75
+  threshold: 0.1
+  temperature: 0
+  dynamic_cropping: True
+  # temperature: 0.0        # For sigmoid mask
+  learn_mean: False
+
+conv:
+  bias: True
+  causal: False
+  type: SeparableFlexConv
+  use_fft: False
+  padding: "same"
+  stride: 1
+  cache: False

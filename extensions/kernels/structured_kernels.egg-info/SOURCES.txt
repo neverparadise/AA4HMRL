@@ -1,0 +1,6 @@
+README.md
+setup.py
+structured_kernels.egg-info/PKG-INFO
+structured_kernels.egg-info/SOURCES.txt
+structured_kernels.egg-info/dependency_links.txt
+structured_kernels.egg-info/top_level.txt

@@ -1,0 +1,63 @@
+env_specific_enc_dec: False
+contain_2d_env: False
+actor_critic: 
+  use_mlp: True
+  use_transformer: True
+  use_compile: False # if s4, False
+  encoder_net_1d: s4 # rnn s4 ccnn
+  encoder_net_2d: resnet # s4 ccnn cnn resnet
+  decoder_net: s4 # rnn s4
+  d_model: 256
+  activation: gelu # identity, tanh, gelu, relu, eli, swish, silu, glu, sigmoid, softplus, modrelu, 
+  optimizer: adam # adam
+  gradient_visualization: False
+  last_operation: mean # sum or mean
+  input_to_hidden: pooling # pooling or bmm
+  hidden_to_output: pooling # pooling or bmm 
+  pos_encoding: True
+
+mlp:
+  depth: 2
+  hidden_dim: 256
+  expansion_factor: 128
+  dropout: 0.1
+  activation: gelu
+
+transformer:
+  dropout: 0.1
+  dim_feedforward: 256 # d_model -> dim_feedforward -> d_model
+  num_heads: 1
+  num_encoder_layers: 2
+  activation: gelu # relu, 
+
+cnn: # resnet
+  kernel_size: 3
+  stride: 1
+  num_layers: 5
+  mid_channels: 64
+  avg_pooling: True
+
+rnn:
+  final_activation: identity # identity, tanh, gelu, relu, eli, swish, silu, glu, sigmoid, softplus, modrelu, 
+  num_layers: 2
+  bias: True
+
+s4:
+  d_state: 256
+  lr: 0.0001
+  num_layers: 2
+  dropout: 0.0
+  final_activation: identity # tanh, gelu, relu
+  initializer: uniform
+
+weight_decay:
+  actor: 0.0
+  critic: 0.0
+
+
+
+
+
+
+
+

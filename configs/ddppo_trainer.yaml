@@ -1,0 +1,104 @@
+defaults:
+  - ppo: ppo
+  - nn: nn
+  - ccnn_img: ccnn_img
+  - ccnn_seq: ccnn_seq
+  - _self_
+
+hydra:
+  run:
+    dir: outputs/${now:%Y-%m-%d/%H-%M-%S}
+
+distributed:
+  device_ids: [0, 1, 2, 3, 4, 5, 6, 7]
+  multiprocessing_distributed: True
+  world_size: 8
+  port: 12390
+
+experiment:
+  single_env_learning: False
+  seed: 5
+  device: 5
+  gamma: 0.99
+  env_type: "gym"
+  finetuning_type: 'mix-to-mix'
+  max_episode_steps: 1000 # the maximum number of episode steps ! Don't change this value
+  num_rollout_steps: 128 # the number of policy rollout steps
+  num_envs: 32 # envpool num_envs
+  # async_batch_size: 32
+  total_timesteps: 10000000 # 1000000 # 5000000 # null # 5000000 # 5M
+  finetuning_timesteps: 10000 # 1000000
+  save_ckpt: True
+  num_checkpoints: 10
+  capture_video: False
+  cuda: True
+  torch_deterministic: True
+  resume: False
+  resume_update_idx: 0
+  resume_dir: None # output/2023-06-16/23-51-58/
+#   pretraining_env_ids: [
+#   'CartPole-v1',
+#   'LunarLander-v2',
+#   'BipedalWalker-v3',
+#   'Ant-v4',
+#  'Hopper-v4',
+#   'HalfCheetah-v4',
+#  'InvertedPendulum-v4',
+#  'Reacher-v4',
+#   ]
+#   finetuning_env_ids: [
+#   'Acrobot-v1',
+#   'LunarLanderContinuous-v2',
+#   'InvertedDoublePendulum-v4',
+#     'Walker2d-v4',
+#   'Humanoid-v4',
+#   'Swimmer-v4',
+#   'Pusher-v4',
+#   'Pendulum-v1',
+#   ]
+  
+  pretraining_env_ids: ['CartPole-v1', 
+  'LunarLander-v2', 
+  'BipedalWalker-v3', 
+  'Acrobot-v1', 
+  'LunarLanderContinuous-v2', 
+  'Pendulum-v1', 
+  'MountainCarContinuous-v0', 
+  'BipedalWalkerHardcore-v3'] 
+  finetuning_env_ids: [
+  'Ant-v4', 
+  'Hopper-v4', 
+  'HalfCheetah-v4',
+  'InvertedPendulum-v4',
+  'Reacher-v4',
+  'InvertedDoublePendulum-v4',
+  'Walker2d-v4',
+  'Humanoid-v4',
+  'Swimmer-v4',
+  'Pusher-v4',
+  'HumanoidStandup-v4']
+
+
+evaluation:
+  eval_seed: 42
+  every: 5
+  num_eval: 5 # the number of evaluations
+  num_test_envs: 8 # gymnasium Syncvector num_envs
+
+
+wandb:
+  mode: online
+  project: HMRL_final_multi
+  entity: null
+  name: null
+  group: null
+  tags: null
+  notes: null
+
+paths:
+  dir: outputs/${now:%Y-%m-%d/%H-%M-%S}
+  log: outputs/${now:%Y-%m-%d/%H-%M-%S}/runs
+  video: outputs/${now:%Y-%m-%d/%H-%M-%S}/videos 
+  checkpoints: outputs/${now:%Y-%m-%d/%H-%M-%S}/checkpoints 
+  src: outputs/${now:%Y-%m-%d/%H-%M-%S}/src 
+  scripts: outputs/${now:%Y-%m-%d/%H-%M-%S}/scripts 

@@ -1,0 +1,18 @@
+actor_lr: 0.0003
+critic_lr: 0.0005
+actor_weight_decay: 0.0 # 0.00001
+critic_weight_decay: 0.0 # 0.00001
+anneal_lr: True
+batch_size: 256 
+buffer_size: 4000000
+use_grad_clip: True
+max_grad_norm: 0.5
+norm_obs: True
+norm_reward: True
+const_coef: 0.0 # frobenius norm
+clip_coef: 0.2
+vf_coef: 0.5
+gamma: 0.99
+tau: 0.005
+iql_tau: 0.7
+beta: 3.0
