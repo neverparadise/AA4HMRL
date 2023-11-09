@@ -18,6 +18,17 @@ cmds=[
     nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.device=7 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True 'experiment.pretraining_env_ids=[Walker2d-v4]'
 ]
 
+cmds=[
+    nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.device=0 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True 'experiment.pretraining_env_ids=[CartPole-v1]'
+    nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.device=1 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True 'experiment.pretraining_env_ids=[Acrobot-v1]'
+    nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.device=2 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True 'experiment.pretraining_env_ids=[HumanoidStandup-v4]'
+    nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.device=3 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True 'experiment.pretraining_env_ids=[Pendulum-v1]'
+    nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.device=4 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True 'experiment.pretraining_env_ids=[InvertedPendulum-v4]'
+    nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.device=5 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True 'experiment.pretraining_env_ids=[InvertedDoublePendulum-v4]' 
+    nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.device=6 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True 'experiment.pretraining_env_ids=[Swimmer-v4]'
+    nohup xvfb-run --auto-servernum python main_ddppo.py experiment.single_env_learning=True experiment.device=7 experiment.seed=186 nn.env_specific_enc_dec=True distributed.multiprocessing_distributed=False distributed.port=12186 nn.actor_critic.use_compile=True 'experiment.pretraining_env_ids=[Pusher-v4]'
+]
+
 result_refs = []
 for cmd in cmds:
     ref = distributed_training.remote(cmd)
