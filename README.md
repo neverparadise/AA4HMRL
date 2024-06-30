@@ -1,7 +1,5 @@
 # Environment-Agnostic Architecture for Heterogeneous Multi-Environment Reinforcement Learning
 Official pytorch code implemenataion of the paper: **Environment-Agnostic Architecture for Heterogeneous Multi-Environment Reinforcement Learning**.
-
-The experiments of the paper were tested on Ubuntu 22.04, 96 CPUs, 8 A6000 GPUs.
  
 ## Installation
 1. Install pytorch 2.1 from https://pytorch.org/
@@ -16,10 +14,18 @@ pip install -r requirements.txt
 python ./extensions/kernels/setup.py install 
 ```
 
-4. Download D4RL datasets [Link] and unzip 
+4. Download D4RL datasets [Link]() and unzip 
 
 ## Usage
 
+### Env agnostic-architecture experiment
+```
+python main_ddppo.py experiment.seed=0 nn.env_specific_enc_dec=False nn.actor_critic.encoder_net_1d=s4 nn.actor_critic.decoder_net=s4 
+python main_ddppo.py experiment.seed=0 nn.env_specific_enc_dec=False nn.actor_critic.encoder_net_1d=rnn nn.actor_critic.decoder_net=rnn 
+```
 
-## Citation
+### Env specific-architecture experiment
+python main_ddppo.py experiment.seed=0 nn.env_specific_enc_dec=True 
+
+
 
