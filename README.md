@@ -14,8 +14,6 @@ pip install -r requirements.txt
 python ./extensions/kernels/setup.py install 
 ```
 
-4. Download D4RL datasets [Link]() and unzip 
-
 ## Usage
 
 ### Env agnostic-architecture experiment
@@ -25,7 +23,8 @@ python main_ddppo.py experiment.seed=0 nn.env_specific_enc_dec=False nn.actor_cr
 ```
 
 ### Env specific-architecture experiment
+```
 python main_ddppo.py experiment.seed=0 nn.env_specific_enc_dec=True 
-
+```
 
 
